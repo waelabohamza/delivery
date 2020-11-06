@@ -8,7 +8,7 @@ class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext context) {
     return super.createHttpClient(context)
-        ..maxConnectionsPerHost = 10;
+        ..maxConnectionsPerHost = 5;
   }
 }
 void main(){ 

@@ -1,9 +1,18 @@
+import 'dart:io';
+
 import 'package:delivery/pages/homescreen.dart';
 import 'package:delivery/pages/login.dart';
 import 'package:delivery/pages/resetpassword/resetpassword.dart';
 import 'package:flutter/material.dart';
-
-void main() {
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext context) {
+    return super.createHttpClient(context)
+        ..maxConnectionsPerHost = 5;
+  }
+}
+void main(){ 
+  HttpOverrides.global = MyHttpOverrides();
   runApp(MyApp());
 }
 class MyApp extends StatelessWidget {

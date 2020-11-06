@@ -37,6 +37,7 @@ dependencies:
   jiffy: ^3.0.1
   google_maps_flutter: ^0.5.33
   flutter_polyline_points: ^0.2.4
+  cached_network_image: ^2.3.3
 
 dev_dependencies:
   flutter_launcher_icons: "^0.8.0"

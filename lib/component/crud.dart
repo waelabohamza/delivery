@@ -19,7 +19,7 @@ class Crud {
     } 
     } catch (e) {
       print("caught Error : ") ; 
-      print(e) ; 
+      print(e); 
     }
   }
 

@@ -8,6 +8,7 @@ class Crud {
   // var server_name = "10.0.2.2:8080/food";
   readData(String type) async {
     var url;
+    try {
     var response = await http.get(url);
     if (response.statusCode == 200) {
       print(response.body);
@@ -15,21 +16,30 @@ class Crud {
       return responsebody;
     } else {
       print("page not found");
+    } 
+    } catch (e) {
+      print("caught Error : ") ; 
+      print(e) ; 
     }
   }
 
   Future readDataWhere(String url, String value) async {
     var data;
-     if (url == "ordersdetails") {
-       url = "http://${server_name}/delivery/orders_delivery_details.php";
+    if (url == "ordersdetails") {
+      url = "http://${server_name}/delivery/orders_delivery_details.php";
       data = {"ordersid": value};
     }
+    try {
     var response = await http.post(url, body: data);
     if (response.statusCode == 200) {
       var responsebody = jsonDecode(response.body);
       return responsebody;
     } else {
       print("File Not Found ");
+    }
+     } catch (e) {
+      print("caught Error : ") ; 
+      print(e) ; 
     }
   }
 
@@ -46,24 +56,32 @@ class Crud {
     }
     if (type == "newpassword") {
       url = "http://${server_name}/newpassword.php";
-    }  if (type == "approvedelivery") {
-        url = "http://${server_name}/delivery/orders_delivery_approve.php";
+    }
+    if (type == "approvedelivery") {
+      url = "http://${server_name}/delivery/orders_delivery_approve.php";
     }
     if (type == "donedelivery") {
-        url = "http://${server_name}/delivery/donedelivery.php";
-    }if (type =="ordersdelivery") {
-        url = "http://${server_name}/delivery/orders_delivery.php";
-    } 
-    var response = await http.post(url, body: data);
-    if (response.statusCode == 200) {
-      print(response.body);
-      var responsebody = jsonDecode(response.body);
-      return responsebody;
-    } else {
-      print("page Not found");
+      url = "http://${server_name}/delivery/donedelivery.php";
+    }
+    if (type == "ordersdelivery") {
+      url = "http://${server_name}/delivery/orders_delivery.php";
+    }
+    try {
+      var response = await http.post(url, body: data);
+      if (response.statusCode == 200) {
+        print(response.body);
+        var responsebody = jsonDecode(response.body);
+        return responsebody;
+      } else {
+        print("page Not found");
+      }
+    } catch (e) {
+      print("caught Error : ") ; 
+      print(e) ; 
     }
   }
-    Future editUsers(username, email, password, phone, id, bool issfile,
+
+  Future editUsers(username, email, password, phone, id, bool issfile,
       [File imagefile]) async {
     var uri = Uri.parse("http://${server_name}/users/editusers.php");
 

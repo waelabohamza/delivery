@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:delivery/pages/homescreen.dart';
 import 'package:delivery/pages/login.dart';
 import 'package:delivery/pages/resetpassword/resetpassword.dart';

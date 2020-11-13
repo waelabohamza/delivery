@@ -34,7 +34,7 @@ class _OrdersDeliveryState extends State<OrdersDelivery> {
     }
   }
 
-//  Timer _timer = new Timer.periodic(Duration(seconds: 60), (Timer t) =>  setsta);
+ 
   @override
   void initState() {
     setLocal();
@@ -42,12 +42,7 @@ class _OrdersDeliveryState extends State<OrdersDelivery> {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    //  _timer.cancel()  ;
-    super.dispose();
-  }
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -101,6 +96,8 @@ class ListOrders extends StatelessWidget {
            
         return Navigator.of(context).push(MaterialPageRoute(builder: (context) {
           return Delivery(
+              tokenres:orders['res_token'] ,
+              tokenuser:orders['user_token'] ,
               statusorders: 1,
               orderid: orders['orders_id'],
               lat: double.parse(orders['orders_lat']),

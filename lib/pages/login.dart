@@ -1,5 +1,6 @@
 import 'package:delivery/component/crud.dart';
 import 'package:delivery/component/valid.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,7 +19,11 @@ class Login extends StatefulWidget {
  
 
 class _LoginState extends State<Login> {
- 
+
+  String mytoken ; 
+  
+   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+
 
   Future<bool> _onWillPop() {
     return showDialog(
@@ -54,6 +59,8 @@ class _LoginState extends State<Login> {
   TextEditingController email = new TextEditingController();
   TextEditingController phone = new TextEditingController();
   TextEditingController password = new TextEditingController();
+
+  
   GlobalKey<FormState> formstatesignin = new GlobalKey<FormState>();
   GlobalKey<FormState> formstatesignup = new GlobalKey<FormState>();
 
@@ -73,7 +80,7 @@ class _LoginState extends State<Login> {
     if (formdata.validate()) {
       formdata.save();
       showLoading(context) ; 
-      var data = {"email": email.text, "password": password.text  , "role" : "3" };
+      var data = {"email": email.text, "password": password.text  , "role" : "3"   , "token" : mytoken};
       var responsebody = await crud.writeData("login", data);
       if (responsebody['status'] == "success") {
         savePref(responsebody['username'], responsebody['email'],
@@ -93,17 +100,27 @@ class _LoginState extends State<Login> {
  
   bool showsignin = true;
 
-  checkSignIn() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (prefs.getString("id") != null){
-      Navigator.of(context).pushReplacementNamed("home");
-    }
-  }
+  // checkSignIn() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   if (prefs.getString("id") != null){
+  //     Navigator.of(context).pushReplacementNamed("home");
+  //   }
+  // }
 
   @override
   void initState() {
-    checkSignIn();
+    // checkSignIn();
+
     super.initState();
+
+     _firebaseMessaging.getToken().then((String token) {
+          assert(token != null);
+          setState(() {
+            mytoken = token;
+          });
+          print(mytoken);
+        });
+
   }
 
   @override

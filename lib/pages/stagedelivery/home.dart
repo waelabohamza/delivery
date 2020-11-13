@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:delivery/component/alert.dart';
+import 'package:delivery/component/getnotify.dart';
 import 'package:delivery/pages/delivery.dart';
 import 'package:flutter/material.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:delivery/component/crud.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 // My Import
 
@@ -29,21 +29,26 @@ class _HomeState extends State<Home> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     resid = prefs.getString("res");
     userid = prefs.getString("id");
-    data = {"resid": resid, "userid": userid , "status" : 1.toString()};
-     if (this.mounted) { // check whether the state object is in tree
+    data = {"resid": resid, "userid": userid, "status": 1.toString()};
+    if (this.mounted) {
+      // check whether the state object is in tree
       setState(() {
-      // make changes here
+        // make changes here
       });
     }
   }
-Timer _timer;
+
+// Timer _timer;
   @override
   void initState() {
+    getNotify(context);
+    requestPermissons();
     setLocal();
     getidres();
-    _timer = new Timer.periodic(Duration(seconds: 30), (Timer t) =>     (this.mounted) ? setState(() {}) : ""  );
+    // _timer = new Timer.periodic(Duration(seconds: 30), (Timer t) =>     (this.mounted) ? setState(() {}) : ""  );
     super.initState();
   }
+
   Future<bool> _onWillPop() {
     return showDialog(
           context: context,
@@ -65,12 +70,12 @@ Timer _timer;
         ) ??
         false;
   }
- 
+
   @override
   Widget build(BuildContext context) {
-    return   Scaffold(
-            
-            body:WillPopScope(child:  resid == null
+    return Scaffold(
+        body: WillPopScope(
+            child: resid == null
                 ? Center(
                     child: CircularProgressIndicator(),
                   )
@@ -90,7 +95,6 @@ Timer _timer;
                           itemBuilder: (BuildContext context, int index) {
                             return ListOrders(
                               orders: snapshot.data[index],
-
                               userid: userid,
                               crud: crud,
                               context: context,
@@ -100,8 +104,8 @@ Timer _timer;
                       }
                       return Center(child: CircularProgressIndicator());
                     },
-                  ), onWillPop: _onWillPop )
-                  );
+                  ),
+            onWillPop: _onWillPop));
   }
 }
 
@@ -113,19 +117,31 @@ class ListOrders extends StatelessWidget {
   ListOrders({Key key, this.orders, this.userid, this.crud, this.context})
       : super(key: key);
   approveDelivery() async {
-    Map data2 = {"deliveyid": userid, "ordersid": orders['orders_id']};
-    showLoading(context) ; 
+    Map data2 = {
+      "tokenres":orders['res_token'] ,
+      "tokenuser":orders['user_token'] ,
+      "deliveyid": userid,
+      "ordersid": orders['orders_id'],
+      "userid": orders['orders_users'],
+      "resid": orders['orders_res']
+    };
+    showLoading(context);
     var responsebody = await crud.writeData("approvedelivery", data2);
     if (responsebody['status'] == "success") {
-    
       Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-        return Delivery( orderid: orders['orders_id'] , lat:double.parse(orders['orders_lat']) ,long:double.parse(orders['orders_long']));
+        return Delivery(
+            tokenres:orders['res_token'] ,
+            tokenuser:orders['user_token'] ,
+            orderid: orders['orders_id'],
+            lat: double.parse(orders['orders_lat']),
+            long: double.parse(orders['orders_long']));
       }));
-    }else {
-      Navigator.of(context).pop() ; 
-      showdialogall(context, "هام", "تم الموافقة على هذه الطلبية من قبل عامل توصيل اخر") ; 
-      await Future.delayed(Duration(seconds: 2)) ; 
-      Navigator.of(context).pushNamed("home") ; 
+    } else {
+      Navigator.of(context).pop();
+      showdialogall(
+          context, "هام", "تم الموافقة على هذه الطلبية من قبل عامل توصيل اخر");
+      await Future.delayed(Duration(seconds: 2));
+      Navigator.of(context).pushNamed("home");
     }
   }
 
@@ -133,11 +149,7 @@ class ListOrders extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         child: InkWell(
-      onTap: () {
-            
-   
-            
-      },
+      onTap: () {},
       child: Card(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -258,35 +270,30 @@ class ListOrders extends StatelessWidget {
                   EdgeInsets.only(right: 20, left: 20, bottom: 10, top: 10),
               child: Row(
                 children: [
-                   Text(
-                          "بانتظار الموافقة",
-                          style: TextStyle(
-                              color: Colors.green,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600),
-                        ) , 
-                      
+                  Text(
+                    "بانتظار الموافقة",
+                    style: TextStyle(
+                        color: Colors.green,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600),
+                  ),
                   Expanded(
                     child: Container(),
                   ),
-                
-                        InkWell(
-                          child: Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 10),
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: Colors.black, width: 1.3),
-                                  borderRadius: BorderRadius.circular(50)),
-                              child: Text(
-                                "موافق",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.grey),
-                              )),
-                          onTap: approveDelivery,
-                        )
-                      
+                  InkWell(
+                    child: Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black, width: 1.3),
+                            borderRadius: BorderRadius.circular(50)),
+                        child: Text(
+                          "موافق",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600, color: Colors.grey),
+                        )),
+                    onTap: approveDelivery,
+                  )
                 ],
               ),
             )

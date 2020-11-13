@@ -3,6 +3,7 @@ import 'package:delivery/pages/homescreen.dart';
 import 'package:delivery/pages/login.dart';
 import 'package:delivery/pages/resetpassword/resetpassword.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext context) {
@@ -10,8 +11,14 @@ class MyHttpOverrides extends HttpOverrides {
         ..maxConnectionsPerHost = 5;
   }
 }
-void main(){ 
+SharedPreferences sharedPrefs;
+String userid;
+void main() async { 
   HttpOverrides.global = MyHttpOverrides();
+  WidgetsFlutterBinding.ensureInitialized();
+  sharedPrefs = await SharedPreferences.getInstance();
+  userid = sharedPrefs.getString("id");
+
   runApp(MyApp());
 }
 class MyApp extends StatelessWidget {
@@ -31,7 +38,7 @@ class MyApp extends StatelessWidget {
           ) 
         )
       ,
-      home:Login(),
+      home: userid == null ? Login() : HomeScreen(),
       routes: {
         "home" : (context) => HomeScreen(), 
         "login" : (context) => Login(), 

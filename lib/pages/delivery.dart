@@ -1,19 +1,21 @@
 import 'package:delivery/component/alert.dart';
 import 'package:delivery/component/crud.dart';
-import 'package:flutter_polyline_points/flutter_polyline_points.dart';
+// import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:flutter/material.dart';
-import 'dart:async';
+// import 'dart:async';
 import 'dart:math';
 
 
 class Delivery extends StatefulWidget {
+  final tokenuser ; 
+  final tokenres ; 
   final lat ; 
   final long ; 
   final orderid ; 
   final statusorders ; 
-  Delivery({Key key , this.lat  , this.long , this.orderid , this.statusorders}) : super(key: key);
+  Delivery({Key key , this.lat  , this.long , this.orderid , this.statusorders , this.tokenuser , this.tokenres}) : super(key: key);
 
   @override
   _DeliveryState createState() => _DeliveryState();
@@ -82,8 +84,9 @@ class _DeliveryState extends State<Delivery> {
 //  _getPolyline() ;  
 
   }
+  // , "tokenuser" : widget.userid , "tokenres" : widget.resid 
       doneDelivery() async {
-        var data = {"orderid" : widget.orderid} ; 
+        var data = {"orderid" : widget.orderid  , "tokenuser" : widget.tokenuser , "tokenres" : widget.tokenres} ; 
         showLoading(context) ;  
         var responsebody = await crud.writeData("donedelivery", data); 
         if (responsebody['status'] == "success") {
@@ -107,8 +110,8 @@ class _DeliveryState extends State<Delivery> {
     );
      print(markers) ; 
       location.onLocationChanged.listen((LocationData currentLocation) {
-       print(currentLocation.latitude) ; 
-       print(currentLocation.longitude) ; 
+      //  print(currentLocation.latitude) ; 
+      //  print(currentLocation.longitude) ; 
       updatePinMap(currentLocation) ; 
     if (this.mounted) { // check whether the state object is in tree
       setState(() {
@@ -118,7 +121,7 @@ class _DeliveryState extends State<Delivery> {
       // Use current location
     });
 
-     print("=================================") ; 
+    print("=================================") ; 
     print(widget.statusorders) ; 
     print("=================================") ; 
   }

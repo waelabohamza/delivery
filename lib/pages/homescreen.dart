@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key key}) : super(key: key);
+  final initialpage  ; 
+  HomeScreen({Key key  ,this.initialpage}) : super(key: key);
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -28,6 +29,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
+    print(widget.initialpage == "home" ) ; 
+    print("============================") ;
+    print(widget.initialpage == "wait" ) ; 
+
     getprefs();
     super.initState();
   }
@@ -37,6 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Directionality(
         textDirection: TextDirection.rtl,
         child: DefaultTabController(
+          initialIndex: widget.initialpage == "home" ? 0 : widget.initialpage == "wait" ? 1 : widget.initialpage == "done" ? 2  : 0 ,
             length: 3,
             child: Scaffold(
               appBar: AppBar(

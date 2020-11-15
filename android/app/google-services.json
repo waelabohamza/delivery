@@ -1,21 +1,58 @@
 {
   "project_info": {
-    "project_number": "498359163160",
-    "firebase_url": "https://fooddelivery-edbb4.firebaseio.com",
-    "project_id": "fooddelivery-edbb4",
-    "storage_bucket": "fooddelivery-edbb4.appspot.com"
+    "project_number": "554775090794",
+    "firebase_url": "https://talabgo-ce838.firebaseio.com",
+    "project_id": "talabgo-ce838",
+    "storage_bucket": "talabgo-ce838.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:498359163160:android:9b9e3e4e459b14d2f2666d",
+        "mobilesdk_app_id": "1:554775090794:android:9261811bbfd8c26800dc13",
+        "android_client_info": {
+          "package_name": "com.TalabGo.admin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "554775090794-l24pvmcvfs4171s04p1ttv6at1ao1eo9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.TalabGo.admin",
+            "certificate_hash": "174d33eb1123f94669965193f284e452b34455d3"
+          }
+        },
+        {
+          "client_id": "554775090794-opetmo0fm6jhb6sj1b4bn29rjq9lkos0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBR_B7XIZ3U60XnED9rFoKEyTTv9TVT_Rw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "554775090794-opetmo0fm6jhb6sj1b4bn29rjq9lkos0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:554775090794:android:10bd84fb39df450d00dc13",
         "android_client_info": {
           "package_name": "com.TalabGo.delivery"
         }
       },
       "oauth_client": [
         {
-          "client_id": "498359163160-sfsjonsc0ml277u03vhvjfghmbp9ng1i.apps.googleusercontent.com",
+          "client_id": "554775090794-7tlnpiml6s0d3992q4r470ke89ep31io.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.TalabGo.delivery",
@@ -23,20 +60,20 @@
           }
         },
         {
-          "client_id": "498359163160-36e2p9vsmhih79cnncahnocfvvggdcj9.apps.googleusercontent.com",
+          "client_id": "554775090794-opetmo0fm6jhb6sj1b4bn29rjq9lkos0.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDTGVYslcNRZBDmc1wwbE9vsRODImRNtw4"
+          "current_key": "AIzaSyBR_B7XIZ3U60XnED9rFoKEyTTv9TVT_Rw"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "498359163160-36e2p9vsmhih79cnncahnocfvvggdcj9.apps.googleusercontent.com",
+              "client_id": "554775090794-opetmo0fm6jhb6sj1b4bn29rjq9lkos0.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
@@ -45,35 +82,35 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:498359163160:android:9206ee17ab4a94d8f2666d",
+        "mobilesdk_app_id": "1:554775090794:android:b8d6f06f154495ae00dc13",
         "android_client_info": {
-          "package_name": "com.example.fooddelivery"
+          "package_name": "com.TalabGo.fooddelivery"
         }
       },
       "oauth_client": [
         {
-          "client_id": "498359163160-6e1q2svn9b6eqp31qv9sedq9vliqsqe5.apps.googleusercontent.com",
+          "client_id": "554775090794-fp98h1f1d5kcuidmnu8qmst4e4shqtmi.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.fooddelivery",
+            "package_name": "com.TalabGo.fooddelivery",
             "certificate_hash": "174d33eb1123f94669965193f284e452b34455d3"
           }
         },
         {
-          "client_id": "498359163160-36e2p9vsmhih79cnncahnocfvvggdcj9.apps.googleusercontent.com",
+          "client_id": "554775090794-opetmo0fm6jhb6sj1b4bn29rjq9lkos0.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDTGVYslcNRZBDmc1wwbE9vsRODImRNtw4"
+          "current_key": "AIzaSyBR_B7XIZ3U60XnED9rFoKEyTTv9TVT_Rw"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "498359163160-36e2p9vsmhih79cnncahnocfvvggdcj9.apps.googleusercontent.com",
+              "client_id": "554775090794-opetmo0fm6jhb6sj1b4bn29rjq9lkos0.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
@@ -82,35 +119,35 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:498359163160:android:ed867ded9a81e203f2666d",
+        "mobilesdk_app_id": "1:554775090794:android:d11ad532a32d187d00dc13",
         "android_client_info": {
-          "package_name": "com.example.restaurants"
+          "package_name": "com.TalabGo.restaurants"
         }
       },
       "oauth_client": [
         {
-          "client_id": "498359163160-f5sefstokc209h3lbfd8csl6dmcer5dq.apps.googleusercontent.com",
+          "client_id": "554775090794-fufv2clc1s59bufngbjoknmbgm24e0o2.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.restaurants",
+            "package_name": "com.TalabGo.restaurants",
             "certificate_hash": "174d33eb1123f94669965193f284e452b34455d3"
           }
         },
         {
-          "client_id": "498359163160-36e2p9vsmhih79cnncahnocfvvggdcj9.apps.googleusercontent.com",
+          "client_id": "554775090794-opetmo0fm6jhb6sj1b4bn29rjq9lkos0.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDTGVYslcNRZBDmc1wwbE9vsRODImRNtw4"
+          "current_key": "AIzaSyBR_B7XIZ3U60XnED9rFoKEyTTv9TVT_Rw"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "498359163160-36e2p9vsmhih79cnncahnocfvvggdcj9.apps.googleusercontent.com",
+              "client_id": "554775090794-opetmo0fm6jhb6sj1b4bn29rjq9lkos0.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

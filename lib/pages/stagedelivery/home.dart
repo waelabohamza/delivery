@@ -45,6 +45,8 @@ class _HomeState extends State<Home> {
     requestPermissons();
     setLocal();
     getidres();
+    getLocalNotification()  ; 
+    requestLocalPermissions() ;
     // _timer = new Timer.periodic(Duration(seconds: 30), (Timer t) =>     (this.mounted) ? setState(() {}) : ""  );
     super.initState();
   }

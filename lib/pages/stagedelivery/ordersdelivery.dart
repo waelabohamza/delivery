@@ -172,53 +172,53 @@ class ListOrders extends StatelessWidget {
                     ],
                   )),
             ),
-            Container(
-              color: Colors.red,
-              padding: EdgeInsets.symmetric(vertical: 4, horizontal: 20),
-              child: Row(
-                children: [
-                  Text(
-                    "الوجبة",
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.w600),
-                  ),
-                  Expanded(child: Container()),
-                  Text("الكميه",
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.w600)),
-                ],
-              ),
-            ),
-            FutureBuilder(
-              future:
-                  Crud().readDataWhere("ordersdetails", orders['orders_id']),
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                if (snapshot.hasData) {
-                  return ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: snapshot.data.length,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, i) {
-                        return Container(
-                          padding:
-                              EdgeInsets.symmetric(vertical: 4, horizontal: 20),
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Text(snapshot.data[i]['item_name']),
-                                  Expanded(child: Container()),
-                                  Text(snapshot.data[i]['details_quantity']),
-                                ],
-                              )
-                            ],
-                          ),
-                        );
-                      });
-                }
-                return Center(child: CircularProgressIndicator());
-              },
-            ),
+            // Container(
+            //   color: Colors.red,
+            //   padding: EdgeInsets.symmetric(vertical: 4, horizontal: 20),
+            //   child: Row(
+            //     children: [
+            //       Text(
+            //         "الوجبة",
+            //         style: TextStyle(
+            //             color: Colors.white, fontWeight: FontWeight.w600),
+            //       ),
+            //       Expanded(child: Container()),
+            //       Text("الكميه",
+            //           style: TextStyle(
+            //               color: Colors.white, fontWeight: FontWeight.w600)),
+            //     ],
+            //   ),
+            // ),
+            // FutureBuilder(
+            //   future:
+            //       Crud().readDataWhere("ordersdetails", orders['orders_id']),
+            //   builder: (BuildContext context, AsyncSnapshot snapshot) {
+            //     if (snapshot.hasData) {
+            //       return ListView.builder(
+            //           shrinkWrap: true,
+            //           itemCount: snapshot.data.length,
+            //           physics: NeverScrollableScrollPhysics(),
+            //           itemBuilder: (context, i) {
+            //             return Container(
+            //               padding:
+            //                   EdgeInsets.symmetric(vertical: 4, horizontal: 20),
+            //               child: Column(
+            //                 children: [
+            //                   Row(
+            //                     children: [
+            //                       Text(snapshot.data[i]['item_name']),
+            //                       Expanded(child: Container()),
+            //                       Text(snapshot.data[i]['details_quantity']),
+            //                     ],
+            //                   )
+            //                 ],
+            //               ),
+            //             );
+            //           });
+            //     }
+            //     return Center(child: CircularProgressIndicator());
+            //   },
+            // ),
             Container(
               padding:
                   EdgeInsets.only(right: 20, left: 20, bottom: 10, top: 10),

@@ -3,6 +3,13 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:path/path.dart';
 
+  String basicAuth = 'Basic ' + base64Encode(utf8.encode('TalabGoUser@58421710942258459:TalabGoPassword@58421710942258459'));
+  Map<String, String> myheaders = {
+    // 'content-type': 'application/json',
+    // 'accept': 'application/json',
+    'authorization': basicAuth
+ };
+
 class Crud {
   var server_name = "talabpay.com/api";
 
@@ -12,7 +19,7 @@ class Crud {
   readData(String type) async {
     var url;
     try {
-    var response = await http.get(url);
+    var response = await http.get(url , headers: myheaders);
     if (response.statusCode == 200) {
       print(response.body);
       var responsebody = jsonDecode(response.body);
@@ -33,7 +40,7 @@ class Crud {
       data = {"ordersid": value};
     }
     try {
-    var response = await http.post(url, body: data);
+    var response = await http.post(url, body: data  , headers: myheaders);
     if (response.statusCode == 200) {
       var responsebody = jsonDecode(response.body);
       return responsebody;
@@ -70,7 +77,7 @@ class Crud {
       url = "http://${server_name}/delivery/orders_delivery.php";
     }
     try {
-      var response = await http.post(url, body: data);
+      var response = await http.post(url, body: data , headers: myheaders);
       if (response.statusCode == 200) {
         print(response.body);
         var responsebody = jsonDecode(response.body);
@@ -89,6 +96,7 @@ class Crud {
     var uri = Uri.parse("http://${server_name}/users/editusers.php");
 
     var request = new http.MultipartRequest("POST", uri);
+    request.headers.addAll(myheaders) ; 
     if (issfile == true) {
       var stream = new http.ByteStream(imagefile.openRead());
       stream.cast();

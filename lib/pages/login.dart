@@ -80,7 +80,7 @@ class _LoginState extends State<Login> {
     if (formdata.validate()) {
       formdata.save();
       showLoading(context) ; 
-      var data = {"email": email.text, "password": password.text  , "role" : "3"   , "token" : mytoken};
+      var data = {"email": email.text, "password": password.text  , "role" : "3"   , "token" : mytoken != null ? mytoken : "www" };
       var responsebody = await crud.writeData("login", data);
       if (responsebody['status'] == "success") {
         savePref(responsebody['username'], responsebody['email'],

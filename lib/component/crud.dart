@@ -12,7 +12,7 @@ import 'package:path/path.dart';
 
 class Crud {
   var server_name = "talabpay.com/api";
-  // var server_name = "192.168.1.2:8080/food";
+  // var server_name = "192.168.1.4:8080/food";
   // var server_name = "10.0.2.2:8080/food";
   
   readData(String type) async {
@@ -78,8 +78,7 @@ class Crud {
     try {
       var response = await http.post(url, body: data , headers: myheaders);
       if (response.statusCode == 200) {
-        print(response.body);
-        var responsebody = jsonDecode(response.body);
+        var responsebody = jsonDecode(response.body); 
         return responsebody;
       } else {
         print("page Not found");

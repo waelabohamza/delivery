@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:delivery/pages/homescreen.dart';
 import 'package:delivery/pages/login.dart';
+import 'package:delivery/pages/message.dart';
 import 'package:delivery/pages/resetpassword/resetpassword.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -42,7 +43,8 @@ class MyApp extends StatelessWidget {
       routes: {
         "home" : (context) => HomeScreen(), 
         "login" : (context) => Login(), 
-        "resetpassword" : (context) => ResetPassword()
+        "resetpassword" : (context) => ResetPassword() , 
+        "messsage" :  (context) => Message()
       },
     );
   }

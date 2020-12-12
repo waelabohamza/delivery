@@ -9,13 +9,13 @@ import 'dart:math';
 
 
 class Delivery extends StatefulWidget {
-  final tokenuser ; 
-  final tokenres ; 
+  final user ; 
+  final res   ; 
   final lat ; 
   final long ; 
   final orderid ; 
   final statusorders ; 
-  Delivery({Key key , this.lat  , this.long , this.orderid , this.statusorders , this.tokenuser , this.tokenres}) : super(key: key);
+  Delivery({Key key , this.lat  , this.long , this.orderid , this.statusorders , this.res , this.user}) : super(key: key);
 
   @override
   _DeliveryState createState() => _DeliveryState();
@@ -86,7 +86,7 @@ class _DeliveryState extends State<Delivery> {
   }
   // , "tokenuser" : widget.userid , "tokenres" : widget.resid 
       doneDelivery() async {
-        var data = {"orderid" : widget.orderid  , "tokenuser" : widget.tokenuser , "tokenres" : widget.tokenres} ; 
+        var data = {"orderid" : widget.orderid  , "userid" : widget.user, "resid" : widget.res} ; 
         showLoading(context) ;  
         var responsebody = await crud.writeData("donedelivery", data); 
         if (responsebody['status'] == "success") {

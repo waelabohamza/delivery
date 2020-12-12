@@ -1,3 +1,4 @@
+import 'package:delivery/component/getnotify.dart';
 import 'package:delivery/pages/editaccount.dart';
 import 'package:delivery/pages/stagedelivery/home.dart';
 import 'package:delivery/pages/stagedelivery/ordersdelivery.dart';
@@ -29,10 +30,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    print(widget.initialpage == "home" ) ; 
-    print("============================") ;
-    print(widget.initialpage == "wait" ) ; 
 
+    getNotify(context);
+    requestPermissons();
+    getLocalNotification()  ; 
+    requestLocalPermissions() ;
     getprefs();
     super.initState();
   }
@@ -60,7 +62,13 @@ class _HomeScreenState extends State<HomeScreen> {
                             phone: _phone,
                             username: _username,
                           );
+
                         }));
+                      }) ,
+                      IconButton(
+                      icon: Icon(Icons.notifications),
+                      onPressed: ()  {
+                        Navigator.of(context).pushNamed("messsage") ; 
                       })
                 ],
                 leading: IconButton(

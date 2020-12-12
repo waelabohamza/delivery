@@ -96,8 +96,8 @@ class ListOrders extends StatelessWidget {
            
         return Navigator.of(context).push(MaterialPageRoute(builder: (context) {
           return Delivery(
-              tokenres:orders['res_token'] ,
-              tokenuser:orders['user_token'] ,
+              res:orders['orders_res'] ,
+              user: orders['orders_users'] ,
               statusorders: 1,
               orderid: orders['orders_id'],
               lat: double.parse(orders['orders_lat']),

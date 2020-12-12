@@ -4,7 +4,32 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
+
+
+
  final FirebaseMessaging firebaseMessaging = FirebaseMessaging();
+
+   getTokenDevice() async {
+      String mytoken ; 
+         await  firebaseMessaging.getToken().then((String token){
+           print("=======================")  ; 
+           print("token 1 ${token}" ) ; 
+           print("=======================")  ; 
+         if (token == null) {
+                 firebaseMessaging.getToken().then((String newtoken){
+            mytoken = newtoken;
+            print(" 2 retry token") ;            
+           }) ; 
+         }else {
+            mytoken = token;
+         }    
+           print("=======================")  ; 
+           print("token  2 ${mytoken}" ) ; 
+           print("=======================")  ; 
+      });
+      return mytoken ; 
+    }
+
     void redirectPage(Map<String, dynamic> message , BuildContext context )
         async{
         
@@ -41,7 +66,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
       onMessage: (Map<String, dynamic> message ) async {
           
           String title        = message["notification"]["title"].toString();
-          String body         = message["notification"]["title"].toString();
+          String body         = message["notification"]["body"].toString();
         
         print("Hay  Delivery App: $message");
         showNotification(title, body) ; 

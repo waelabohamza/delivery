@@ -12,7 +12,7 @@ import 'package:path/path.dart';
 
 class Crud {
   var server_name = "talabpay.com/api";
-  // var server_name = "192.168.1.4:8080/food";
+  // var server_name = "192.168.1.2:8080/food";
   // var server_name = "10.0.2.2:8080/food";
   
   readData(String type) async {
@@ -37,6 +37,9 @@ class Crud {
     if (url == "ordersdetails") {
       url = "http://${server_name}/delivery/orders_delivery_details.php";
       data = {"ordersid": value};
+    }if (url == "messages") {
+         url = "http://$server_name/message/messagedelivery.php" ; 
+         data = {"deliveryid": value};
     }
     try {
     var response = await http.post(url, body: data  , headers: myheaders);

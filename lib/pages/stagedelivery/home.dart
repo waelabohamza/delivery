@@ -41,12 +41,10 @@ class _HomeState extends State<Home> {
 // Timer _timer;
   @override
   void initState() {
-    getNotify(context);
-    requestPermissons();
+
     setLocal();
     getidres();
-    getLocalNotification()  ; 
-    requestLocalPermissions() ;
+
     // _timer = new Timer.periodic(Duration(seconds: 30), (Timer t) =>     (this.mounted) ? setState(() {}) : ""  );
     super.initState();
   }
@@ -120,8 +118,6 @@ class ListOrders extends StatelessWidget {
       : super(key: key);
   approveDelivery() async {
     Map data2 = {
-      "tokenres":orders['res_token'] ,
-      "tokenuser":orders['user_token'] ,
       "deliveyid": userid,
       "ordersid": orders['orders_id'],
       "userid": orders['orders_users'],
@@ -132,8 +128,8 @@ class ListOrders extends StatelessWidget {
     if (responsebody['status'] == "success") {
       Navigator.of(context).push(MaterialPageRoute(builder: (context) {
         return Delivery(
-            tokenres:orders['res_token'] ,
-            tokenuser:orders['user_token'] ,
+            res:orders['orders_res'] ,
+            user: orders['orders_users'] ,
             orderid: orders['orders_id'],
             lat: double.parse(orders['orders_lat']),
             long: double.parse(orders['orders_long']));

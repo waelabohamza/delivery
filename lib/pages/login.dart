@@ -1,11 +1,11 @@
 import 'package:delivery/component/crud.dart';
 import 'package:delivery/component/valid.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io';
 import 'package:delivery/component/alert.dart';
+import 'package:delivery/component/getnotify.dart';
 
 class Login extends StatefulWidget {
   Login({Key key}) : super(key: key);
@@ -14,15 +14,8 @@ class Login extends StatefulWidget {
   _LoginState createState() => _LoginState();
 }
 
- 
-
- 
-
 class _LoginState extends State<Login> {
-
-  String mytoken ; 
-  
-   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+  String mytoken;
 
 
   Future<bool> _onWillPop() {
@@ -48,7 +41,6 @@ class _LoginState extends State<Login> {
   }
 
   Crud crud = new Crud();
- 
 
   Pattern pattern =
       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
@@ -60,35 +52,56 @@ class _LoginState extends State<Login> {
   TextEditingController phone = new TextEditingController();
   TextEditingController password = new TextEditingController();
 
-  
   GlobalKey<FormState> formstatesignin = new GlobalKey<FormState>();
   GlobalKey<FormState> formstatesignup = new GlobalKey<FormState>();
 
-  savePref(String username, String email, String id , String balance , String phone  , String password , String res ) async {
+  savePref(String username, String email, String id, String balance,
+      String phone, String password, String res) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setString("id", id);
     preferences.setString("username", username);
     preferences.setString("email", email);
-    preferences.setString("balance", balance) ; 
-    preferences.setString("phone", phone) ; 
-    preferences.setString("password", password) ; 
-    preferences.setString("res", res) ; 
+    preferences.setString("balance", balance);
+    preferences.setString("phone", phone);
+    preferences.setString("password", password);
+    preferences.setString("res", res);
   }
 
   signin() async {
     var formdata = formstatesignin.currentState;
     if (formdata.validate()) {
       formdata.save();
-      showLoading(context) ; 
-      var data = {"email": email.text, "password": password.text  , "role" : "3"   , "token" : mytoken != null ? mytoken : "www" };
+      showLoading(context);
+      var data ; 
+      if (mytoken == null) {
+              data = {
+                "email": email.text,
+                "password": password.text,
+                "role": "3",
+              };
+      }else{
+            data = {
+            "email": email.text,
+            "password": password.text,
+            "role": "3",
+            "token": mytoken 
+          };
+      }
+ 
       var responsebody = await crud.writeData("login", data);
       if (responsebody['status'] == "success") {
-        savePref(responsebody['username'], responsebody['email'],
-            responsebody['id'] , responsebody['balance'] , responsebody['phone'] , responsebody['password'] , responsebody['res']);
+        savePref(
+            responsebody['username'],
+            responsebody['email'],
+            responsebody['id'],
+            responsebody['balance'],
+            responsebody['phone'],
+            responsebody['password'],
+            responsebody['res']);
         Navigator.of(context).pushReplacementNamed("home");
       } else {
         print("login faild");
-        Navigator.pop(context) ; 
+        Navigator.pop(context);
         showdialogall(context, "خطأ", "البريد الالكتروني او كلمة المرور خاطئة");
       }
     } else {
@@ -96,31 +109,18 @@ class _LoginState extends State<Login> {
     }
   }
 
- 
- 
   bool showsignin = true;
-
-  // checkSignIn() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   if (prefs.getString("id") != null){
-  //     Navigator.of(context).pushReplacementNamed("home");
-  //   }
-  // }
+     getmytoken() async {
+         mytoken =  await  getTokenDevice() ; 
+         if (mytoken != null) return  ; 
+         mytoken =  await  getTokenDevice() ; 
+    } 
 
   @override
   void initState() {
     // checkSignIn();
-
+    getmytoken()  ;
     super.initState();
-
-     _firebaseMessaging.getToken().then((String token) {
-          assert(token != null);
-          setState(() {
-            mytoken = token;
-          });
-          print(mytoken);
-        });
-
   }
 
   @override
@@ -154,33 +154,31 @@ class _LoginState extends State<Login> {
                             padding: EdgeInsets.only(top: 20),
                           ),
                           buildContaineraAvatar(mdw),
-                        buildFormBoxSignIn(mdw) , 
+                          buildFormBoxSignIn(mdw),
                           Container(
                               margin: EdgeInsets.only(top: 20),
                               child: Column(
                                 children: <Widget>[
-                                    InkWell(
-                                          onTap: () {
-                                            return Navigator.of(context).pushNamed("resetpassword") ; 
-                                          },
-                                          child: Text(
-                                            "  ? هل نسيت كلمة المرور",
-                                            style: TextStyle(
-                                                color: Colors.blue,
-                                                fontWeight: FontWeight.w700,
-                                                fontSize: 18),
-                                          ))
-                                       ,
+                                  InkWell(
+                                      onTap: () {
+                                        return Navigator.of(context)
+                                            .pushNamed("resetpassword");
+                                      },
+                                      child: Text(
+                                        "  ? هل نسيت كلمة المرور",
+                                        style: TextStyle(
+                                            color: Colors.blue,
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: 18),
+                                      )),
                                   SizedBox(height: showsignin ? 12 : 0),
-                                  SizedBox(height: 0)
-                                       ,
+                                  SizedBox(height: 0),
                                   RaisedButton(
-                                    color:   Colors.blue
-                                     ,
+                                    color: Colors.blue,
                                     elevation: 10,
                                     padding: EdgeInsets.symmetric(
                                         vertical: 10, horizontal: 40),
-                                    onPressed:   signin  ,
+                                    onPressed: signin,
                                     // onPressed: () => Navigator.of(context).pushNamed("home"),
                                     child: Row(
                                       mainAxisAlignment:
@@ -188,8 +186,7 @@ class _LoginState extends State<Login> {
                                       mainAxisSize: MainAxisSize.min,
                                       children: <Widget>[
                                         Text(
-                                          "تسجيل الدخول"
-                                              ,
+                                          "تسجيل الدخول",
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 18),
@@ -204,11 +201,9 @@ class _LoginState extends State<Login> {
                                       ],
                                     ),
                                   ),
-                              
                                   SizedBox(
                                     height: 30,
                                   ),
-                        
                                 ],
                               )),
                         ],
@@ -278,7 +273,6 @@ class _LoginState extends State<Login> {
       ),
     );
   }
-  
 
   TextFormField buildTextFormFieldAll(String myhinttext, bool pass,
       TextEditingController myController, String type) {
@@ -298,7 +292,7 @@ class _LoginState extends State<Login> {
         if (type == "phone") {
           return validInput(val, 4, 30, "يكون رقم الهاتف", "phone");
         }
-        return null ; 
+        return null;
       },
       decoration: InputDecoration(
           contentPadding: EdgeInsets.all(4),
@@ -326,9 +320,7 @@ class _LoginState extends State<Login> {
             BoxShadow(color: Colors.black, blurRadius: 3, spreadRadius: 0.1)
           ]),
       child: InkWell(
-        onTap: () {
-         
-        },
+        onTap: () {},
         child: Stack(
           children: <Widget>[
             Positioned(
@@ -358,7 +350,7 @@ class _LoginState extends State<Login> {
             width: mdw,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(mdw),
-                color:   Colors.grey[800] )),
+                color: Colors.grey[800])),
       ),
     ));
   }
@@ -373,9 +365,6 @@ class _LoginState extends State<Login> {
             width: mdw,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(mdw),
-                color:  Colors.blue[800].withOpacity(0.2)
-                     )));
+                color: Colors.blue[800].withOpacity(0.2))));
   }
-
- 
 }

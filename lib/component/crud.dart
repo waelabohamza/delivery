@@ -11,7 +11,9 @@ import 'package:path/path.dart';
  };
 
 class Crud {
-  var server_name = "talabpay.com/api";
+  // var server_name = "talabpay.com/api";
+  var server_name = "almotorkw.com/talabgo/food";
+  
   // var server_name = "192.168.1.2:8080/food";
   // var server_name = "10.0.2.2:8080/food";
   

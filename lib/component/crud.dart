@@ -3,34 +3,36 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:path/path.dart';
 
-  String basicAuth = 'Basic ' + base64Encode(utf8.encode('TalabGoUser@58421710942258459:TalabGoPassword@58421710942258459'));
-  Map<String, String> myheaders = {
-    // 'content-type': 'application/json',
-    // 'accept': 'application/json',
-    'authorization': basicAuth
- };
+String basicAuth = 'Basic ' +
+    base64Encode(utf8.encode(
+        'TalabGoUser@58421710942258459:TalabGoPassword@58421710942258459'));
+Map<String, String> myheaders = {
+  // 'content-type': 'application/json',
+  // 'accept': 'application/json',
+  'authorization': basicAuth
+};
 
 class Crud {
   var server_name = "talabpay.com/api";
   // var server_name = "almotorkw.com/talabgo/food";
-  
-  // var server_name = "192.168.1.3:8080/food";
+
+  // var server_name = "192.168.1.5:8080/food";
   // var server_name = "10.0.2.2:8080/food";
-  
+
   readData(String type) async {
     var url;
     try {
-    var response = await http.get(url , headers: myheaders);
-    if (response.statusCode == 200) {
-      print(response.body);
-      var responsebody = jsonDecode(response.body);
-      return responsebody;
-    } else {
-      print("page not found");
-    } 
+      var response = await http.get(url, headers: myheaders);
+      if (response.statusCode == 200) {
+        print(response.body);
+        var responsebody = jsonDecode(response.body);
+        return responsebody;
+      } else {
+        print("page not found");
+      }
     } catch (e) {
-      print("caught Error : ") ; 
-      print(e); 
+      print("caught Error : ");
+      print(e);
     }
   }
 
@@ -39,21 +41,22 @@ class Crud {
     if (url == "ordersdetails") {
       url = "http://${server_name}/delivery/orders_delivery_details.php";
       data = {"ordersid": value};
-    }if (url == "messages") {
-         url = "http://$server_name/message/messagedelivery.php" ; 
-         data = {"deliveryid": value};
+    }
+    if (url == "messages") {
+      url = "http://$server_name/message/messagedelivery.php";
+      data = {"deliveryid": value};
     }
     try {
-    var response = await http.post(url, body: data  , headers: myheaders);
-    if (response.statusCode == 200) {
-      var responsebody = jsonDecode(response.body);
-      return responsebody;
-    } else {
-      print("File Not Found ");
-    }
-     } catch (e) {
-      print("caught Error : ") ; 
-      print(e) ; 
+      var response = await http.post(url, body: data, headers: myheaders);
+      if (response.statusCode == 200) {
+        var responsebody = jsonDecode(response.body);
+        return responsebody;
+      } else {
+        print("File Not Found ");
+      }
+    } catch (e) {
+      print("caught Error : ");
+      print(e);
     }
   }
 
@@ -81,16 +84,16 @@ class Crud {
       url = "http://${server_name}/delivery/orders_delivery.php";
     }
     try {
-      var response = await http.post(url, body: data , headers: myheaders);
+      var response = await http.post(url, body: data, headers: myheaders);
       if (response.statusCode == 200) {
-        var responsebody = jsonDecode(response.body); 
+        var responsebody = jsonDecode(response.body);
         return responsebody;
       } else {
         print("page Not found");
       }
     } catch (e) {
-      print("caught Error : ") ; 
-      print(e) ; 
+      print("caught Error : ");
+      print(e);
     }
   }
 
@@ -99,7 +102,7 @@ class Crud {
     var uri = Uri.parse("http://${server_name}/users/editusers.php");
 
     var request = new http.MultipartRequest("POST", uri);
-    request.headers.addAll(myheaders) ; 
+    request.headers.addAll(myheaders);
     if (issfile == true) {
       var stream = new http.ByteStream(imagefile.openRead());
       stream.cast();

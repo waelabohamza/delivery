@@ -18,6 +18,7 @@ SharedPreferences sharedPrefs;
 String userid;
 void main() async { 
   HttpOverrides.global = MyHttpOverrides();
+  
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp() ;
   sharedPrefs = await SharedPreferences.getInstance();

@@ -14,7 +14,8 @@ Map<String, String> myheaders = {
 
 class Crud {
   
-  var server_name = "talabpay.com/api";
+  // var server_name = "talabpay.com/api";
+  var server_name = "talabgo.com/food";
   // var server_name = "almotorkw.com/talabgo/food";
 
   // var server_name = "192.168.1.5:8080/food";
@@ -40,11 +41,11 @@ class Crud {
   Future readDataWhere(String url, String value) async {
     var data;
     if (url == "ordersdetails") {
-      url = "http://${server_name}/delivery/orders_delivery_details.php";
+      url = "https://${server_name}/delivery/orders_delivery_details.php";
       data = {"ordersid": value};
     }
     if (url == "messages") {
-      url = "http://$server_name/message/messagedelivery.php";
+      url = "https://$server_name/message/messagedelivery.php";
       data = {"deliveryid": value};
     }
     try {
@@ -64,25 +65,25 @@ class Crud {
   writeData(String type, var data) async {
     var url;
     if (type == "login") {
-      url = "http://${server_name}/auth/login.php";
+      url = "https://${server_name}/auth/login.php";
     }
     if (type == "resetpassword") {
-      url = "http://${server_name}/resetpassword.php";
+      url = "https://${server_name}/resetpassword.php";
     }
     if (type == "verfiycode") {
-      url = "http://${server_name}/verfiycode.php";
+      url = "https://${server_name}/verfiycode.php";
     }
     if (type == "newpassword") {
-      url = "http://${server_name}/newpassword.php";
+      url = "https://${server_name}/newpassword.php";
     }
     if (type == "approvedelivery") {
-      url = "http://${server_name}/delivery/orders_delivery_approve.php";
+      url = "https://${server_name}/delivery/orders_delivery_approve.php";
     }
     if (type == "donedelivery") {
-      url = "http://${server_name}/delivery/donedelivery.php";
+      url = "https://${server_name}/delivery/donedelivery.php";
     }
     if (type == "ordersdelivery") {
-      url = "http://${server_name}/delivery/orders_delivery.php";
+      url = "https://${server_name}/delivery/orders_delivery.php";
     }
     try {
       var response = await http.post(Uri.parse(url), body: data, headers: myheaders);
@@ -100,7 +101,7 @@ class Crud {
 
   Future editUsers(username, email, password, phone, id, bool issfile,
       [File imagefile]) async {
-    var uri = Uri.parse("http://${server_name}/users/editusers.php");
+    var uri = Uri.parse("https://${server_name}/users/editusers.php");
 
     var request = new http.MultipartRequest("POST", uri);
     request.headers.addAll(myheaders);
